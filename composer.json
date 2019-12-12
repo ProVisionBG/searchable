@@ -2,9 +2,12 @@
   "name": "provision/searchable",
   "version": "dev",
   "type": "library",
-  "description": "Searchable indexing for Laravel",
+  "description": "Searchable indexing with MySQL full text for Laravel",
   "keywords": [
-    "searchable"
+    "searchable",
+    "fulltext",
+    "mysql",
+    "laravel"
   ],
   "homepage": "https://github.com/provisionbg/searchable",
   "license": "MIT",
