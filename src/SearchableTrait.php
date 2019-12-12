@@ -47,10 +47,10 @@ trait SearchableTrait
      *
      * @param Builder $query
      * @param string $keywords
-     * @param SearchableModes $searchMode
+     * @param SearchableModes|string $searchMode
      * @return Builder
      */
-    public function scopeSearch($query, string $keywords, SearchableModes $searchMode = null): Builder
+    public function scopeSearch($query, string $keywords, string $searchMode = null): Builder
     {
 
         $titleWeight = str_replace(',', '.', (float)config('searchable.weight.title', 1.5));
