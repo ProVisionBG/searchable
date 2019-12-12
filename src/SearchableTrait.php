@@ -20,6 +20,12 @@ trait SearchableTrait
 {
 
     /**
+     * Searchable score for results orders
+     * @var string
+     */
+    protected $searchableScoreKey = 'searchableScore';
+
+    /**
      * Boot the trait.
      * @return void
      */
@@ -41,29 +47,42 @@ trait SearchableTrait
      *
      * @param Builder $query
      * @param string $keywords
+     * @param SearchableModes $searchMode
      * @return Builder
      */
-    public function scopeSearch($query, string $keywords): Builder
+    public function scopeSearch($query, string $keywords, SearchableModes $searchMode = null): Builder
     {
+
         $titleWeight = str_replace(',', '.', (float)config('searchable.weight.title', 1.5));
         $contentWeight = str_replace(',', '.', (float)config('searchable.weight.content', 1.0));
 
-        $query
-            ->select([$this->getTable() . '.*'])
+        return $query->selectRaw(
+            $this->getTable() . '.*, ' .
+            '(
+                ' . $titleWeight . ' * (MATCH (' . config('searchable.table_name') . '.title) AGAINST (? ' . $searchMode . ')) +
+                ' . $contentWeight . ' * (MATCH (' . config('searchable.table_name') . '.title, ' . config('searchable.table_name') . '.content) AGAINST (? ' . $searchMode . '))
+                ) as ' . $this->searchableScoreKey
+            , [$keywords, $keywords])
             ->leftJoin(config('searchable.table_name'), function (JoinClause $join) {
                 $join->on(config('searchable.table_name') . '.searchable_id', '=', $this->getTable() . '.id')
                     ->where(config('searchable.table_name') . '.searchable_type', '=', $this->getMorphClass());
             })
-            ->whereRaw('MATCH (' . config('searchable.table_name') . '.title, ' . config('searchable.table_name') . '.content) AGAINST (?)', [$keywords])
-            ->orderByRaw(
-                '(' . $titleWeight . ' * (MATCH (' . config('searchable.table_name') . '.title) AGAINST (?)) +
-              ' . $contentWeight . ' * (MATCH (' . config('searchable.table_name') . '.title, ' . config('searchable.table_name') . '.content) AGAINST (?))
-             ) DESC',
-                [$keywords, $keywords]
-            )
-            ->groupBy($this->getTable() . '.id');
+            ->whereRaw('MATCH(' . config('searchable.table_name') . '.title, ' . config('searchable.table_name') . '.content) AGAINST(? ' . $searchMode
+                . ')', [$keywords])
+            ->groupBy($this->getTable() . '.id')
+            ->searchableOrder();
+    }
 
-        return $query;
+    /**
+     * Set searchableScore order direction
+     *
+     * @param Builder $query
+     * @param string $direction ASC | DESC
+     * @return Builder
+     */
+    public function scopeSearchableOrder($query, $direction = 'desc')
+    {
+        return $query->orderBy($this->searchableScoreKey, $direction);
     }
 
     /**
@@ -97,7 +116,7 @@ trait SearchableTrait
      *
      * @return bool
      */
-    protected function indexDataIsRelation($column)
+    protected function indexDataIsRelation($column): bool
     {
         return (int)strpos($column, '.') > 0;
     }
