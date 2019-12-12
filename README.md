@@ -72,10 +72,27 @@ $clientsCollection = Clients::search('John Doe', SearchableModes::Boolean)->pagi
 ```
 
 Available modes
-- NaturalLanguage = 'IN NATURAL LANGUAGE MODE';
-- NaturalLanguageWithQueryExpression = 'IN NATURAL LANGUAGE MODE WITH QUERY EXPANSION';
-- Boolean = 'IN BOOLEAN MODE';
-- QueryExpression = 'WITH QUERY EXPANSION';
+- `NaturalLanguage` - IN NATURAL LANGUAGE MODE
+- `NaturalLanguageWithQueryExpression` - IN NATURAL LANGUAGE MODE WITH QUERY EXPANSION 
+- `Boolean` - IN BOOLEAN MODE
+- `QueryExpression` - WITH QUERY EXPANSION
+
+#### Search with relations & additional wheres
+
+```
+$clientsCollection = Clients::search('John Doe')->where('active', 1)->with(['contacts'])->paginate();
+```
+
+#### Order searchable score
+
+```
+$clientsCollection = Clients::search('John Doe')->searchableOrder('asc')->paginate();
+```
+
+Available options:
+
+- `ASC`
+- `DESC`
 
 ### Commands
 
@@ -132,19 +149,19 @@ Arguments:
 
 ## Config options
 
-### db_connection
+### `db_connection`
 
 Choose the database connection to use, defaults to the default database connection. When you are NOT using the default database connection, this MUST be set before running the migration to work correctly.
 
-### table_name
+### `table_name`
 
 Table name of index
 
-### command_prefix
+### `command_prefix`
 
 Prefix of commands
  
-### weight.title, weight.content
+### `weight.title`, `weight.content`
 
 Results on ``title`` or ``content`` are weighted in the results. Search result score is multiplied by the weight in this config 
 
