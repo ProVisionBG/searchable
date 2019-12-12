@@ -117,7 +117,7 @@ Arguments:
 
 ```
 
-#### Example
+##### Example
 
 - Indexing all clients
 
@@ -129,7 +129,7 @@ Arguments:
 
 #### searchable:unindex
 
-Index all models for a certain class
+UnIndex all models for a certain class
 ```
  php artisan  searchable:unindex
  
@@ -142,7 +142,7 @@ Arguments:
 
 ```
 
-#### Example
+##### Example
 
 - UnIndexing all clients
 
