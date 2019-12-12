@@ -73,7 +73,7 @@ Index all models for a certain class
  php artisan  searchable:index
  
 Usage:
-  laravel-fulltext:all <model_class> {id?}
+  searchable:all <model_class> {id?}
 
 Arguments:
   model_class           Classname of the model to index
@@ -98,7 +98,7 @@ Index all models for a certain class
  php artisan  searchable:unindex
  
 Usage:
-  laravel-fulltext:all <model_class> {id?}
+  searchable:all <model_class> {id?}
 
 Arguments:
   model_class           Classname of the model to index
