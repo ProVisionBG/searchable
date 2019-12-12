@@ -52,16 +52,30 @@ class Clients extends Model
 }
 ```
 
-You can use a dot notitation to query relationships for the model, like ``contacts.value``.
+You can use a dot notation to query relationships for the model, like ``contacts.value``.
 
 
 ### Searching 
 
-You can search using the Search method.
+You can search using the `search` method.
 
 ```
 $clientsCollection = Clients::search('John Doe')->paginate();
 ```
+
+#### Search with specific fulltext search mode
+
+```
+use ProVision\Laravel\Searchable\SearchableModes;
+---
+$clientsCollection = Clients::search('John Doe', SearchableModes::Boolean)->paginate();
+```
+
+Available modes
+- NaturalLanguage = 'IN NATURAL LANGUAGE MODE';
+- NaturalLanguageWithQueryExpression = 'IN NATURAL LANGUAGE MODE WITH QUERY EXPANSION';
+- Boolean = 'IN BOOLEAN MODE';
+- QueryExpression = 'WITH QUERY EXPANSION';
 
 ### Commands
 
@@ -73,7 +87,7 @@ Index all models for a certain class
  php artisan  searchable:index
  
 Usage:
-  searchable:all <model_class> {id?}
+  searchable:index <model_class> {id?}
 
 Arguments:
   model_class           Classname of the model to index
@@ -98,7 +112,7 @@ Index all models for a certain class
  php artisan  searchable:unindex
  
 Usage:
-  searchable:all <model_class> {id?}
+  searchable:unindex <model_class> {id?}
 
 Arguments:
   model_class           Classname of the model to index
@@ -117,7 +131,6 @@ Arguments:
 ``php artisan  searchable:unindex "\App\Models\Client" 1`` 
 
 ## Config options
-
 
 ### db_connection
 
