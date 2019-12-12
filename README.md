@@ -102,7 +102,7 @@ Usage:
 
 Arguments:
   model_class           Classname of the model to index
-  id                    Model id to index (optional)
+  id                    Model id to unindex (optional)
 
 ```
 
