@@ -1,0 +1,49 @@
+{
+  "name": "provision/searchable",
+  "version": "dev",
+  "type": "library",
+  "description": "Searchable indexing for Laravel",
+  "keywords": [
+    "searchable"
+  ],
+  "homepage": "https://github.com/provisionbg/searchable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Venelin Iliev",
+      "email": "venelin@provision.bg",
+      "homepage": "https://veneliniliev.com"
+    }
+  ],
+  "require": {
+    "php": "^7.1.3",
+    "laravel/framework": "5.7.*|5.8.*|^6.0"
+  },
+  "require-dev": {
+    "mockery/mockery": "^1.0",
+    "phpunit/phpunit": "^7.0|^8.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "ProVision\\Laravel\\Searchable\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "ProVision\\Laravel\\Searchable\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "phpunit"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "ProVision\\Laravel\\Searchable\\ServiceProvider"
+      ]
+    }
+  },
+  "config": {
+    "sort-packages": true
+  }
+}
