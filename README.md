@@ -2,6 +2,11 @@
 
 This package creates a MySQL fulltext index for models and enables you to search through those.
 
+## Requirements
+
+- Laravel >= 5.7
+- MySQL >= 5.6 / MariaDB >= 10.0.15
+
 ## Install
 
 1. Install with composer ``composer require provision/searchable``.
