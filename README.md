@@ -50,7 +50,7 @@ class Clients extends Model
             'contacts.value',
             'contactPersons.first_name',
             'contactPersons.last_name',
-            'contacts.value',
+            'contactPersons.contacts.value',
         ];
     }
 
