@@ -38,6 +38,7 @@ class IndexedRecord extends Model
     }
 
     /**
+     * Update index data
      * @return void
      */
     public function updateIndex(): void

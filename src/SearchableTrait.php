@@ -53,8 +53,26 @@ trait SearchableTrait
     public function scopeSearch($query, string $keywords, string $searchMode = null): Builder
     {
 
+        /*
+         * Set weight of fields
+         */
         $titleWeight = str_replace(',', '.', (float)config('searchable.weight.title', 1.5));
         $contentWeight = str_replace(',', '.', (float)config('searchable.weight.content', 1.0));
+
+        /*
+         * Clean keywords
+         */
+        if (!empty(config('searchable.cleaners.' . $searchMode)) && is_array(config('searchable.cleaners.' . $searchMode))) {
+
+            /** @var array $cleaners */
+            $cleaners = config('searchable.cleaners.' . $searchMode);
+
+            /** @var string $cleanerClass */
+            foreach ($cleaners as $cleanerClass) {
+                $keywords = (new $cleanerClass($keywords, $searchMode))->clean();
+            }
+
+        }
 
         return $query->selectRaw(
             $this->getTable() . '.*, ' .
@@ -108,7 +126,12 @@ trait SearchableTrait
             }
         }
 
-        return implode(' ', array_filter($indexData));
+        /*
+         * Replace all non word characters with spaces
+         * Only words are indexed by full text search engine and can be searched.
+         * Non word characters isn't indexed, so it does not make sense to leave them in the search string.
+         */
+        return preg_replace('/[^\p{L}\p{N}_]+/u', ' ', implode(' ', array_filter($indexData)));
     }
 
     /**

@@ -170,6 +170,10 @@ Prefix of commands
 
 Results on ``title`` or ``content`` are weighted in the results. Search result score is multiplied by the weight in this config 
 
+### `cleaners`
+
+Clean searching keywords for prevent breaking the MySQL query.
+
 ## Testing
 
 ``` bash

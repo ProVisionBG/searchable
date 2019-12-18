@@ -12,20 +12,30 @@ return [
     'db_connection' => null,
 
     /*
-     * Table name
+     * Database table name
      */
     'table_name' => 'searchable_index',
 
     /**
-     * Command prefix
+     * Artisan commands prefix
      */
     'command_prefix' => 'searchable',
 
     /*
-     *
+     * Weight on fields for search/indexing
      */
     'weight' => [
         'title' => 1.5,
         'content' => 1,
     ],
+
+    /*
+     * Keyword cleaners
+     * Mode => [ 'cleaners to apply in specific mode' ]
+     */
+    'cleaners' => [
+        \ProVision\Laravel\Searchable\SearchableModes::Boolean => [
+            \ProVision\Laravel\Searchable\Cleaners\EmailCleaner::class
+        ]
+    ]
 ];
