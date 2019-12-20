@@ -6,11 +6,10 @@
 
 namespace ProVision\Searchable\Traits;
 
+use Debugbar;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Query\JoinClause;
@@ -125,7 +124,7 @@ trait SearchableTrait
         $indexData = [];
         foreach ($columns as $column) {
             if ($this->indexDataIsRelation($column)) {
-                $indexData[] = $this->getIndexValueFromRelation($column);
+                $indexData[] = $this->searchableGetIndexValueFromRelation($column);
             } else {
                 $indexData[] = trim($this->{$column});
             }
@@ -154,19 +153,47 @@ trait SearchableTrait
      *
      * @return string
      */
-    protected function getIndexValueFromRelation($column)
+    protected function searchableGetIndexValueFromRelation($column)
     {
-        list($relation, $column) = explode('.', $column);
-        if (is_null($this->{$relation})) {
-            return '';
+        $relations = explode('.', $column);
+        $columnSelect = array_pop($relations);
+
+        return $this->searchableExtractDataFromRelation($this, $relations, $columnSelect);
+    }
+
+    /**
+     * Extract data on nested relation with unlimited level
+     * @param Model $currentRelation
+     * @param array $relations
+     * @param string $column
+     * @return string
+     */
+    protected function searchableExtractDataFromRelation(Model $currentRelation, array $relations, string $column): string
+    {
+        $relationship = $currentRelation;
+        $remainingRelations = $relations;
+
+        foreach ($relations as $relation) {
+
+            array_shift($remainingRelations);
+
+            $relationship = $relationship->{$relation};
+
+            if (is_countable($relationship)) {
+                $values = collect();
+                foreach ($relationship as $subRelation) {
+                    $values->push($this->searchableExtractDataFromRelation($subRelation, $remainingRelations, $column));
+                }
+                return $values->implode(', ');
+            }
         }
 
-        $relationship = $this->{$relation}();
-        if ($relationship instanceof BelongsTo || $relationship instanceof HasOne) {
-            return $this->{$relation}->{$column};
+        if (!is_countable($relationship)) {
+            return $relationship->{$column};
         }
 
-        return $this->{$relation}->pluck($column)->implode(', ');
+        return $relationship->pluck($column)->implode(', ');
+
     }
 
     /**
