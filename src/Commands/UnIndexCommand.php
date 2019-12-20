@@ -10,8 +10,8 @@ use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
-use ProVision\Searchable\IndexedRecord;
-use ProVision\Searchable\SearchableTrait;
+use ProVision\Searchable\Models\SearchableIndex;
+use ProVision\Searchable\Traits\SearchableTrait;
 use Symfony\Component\Console\Helper\ProgressBar;
 
 class UnIndexCommand extends Command
@@ -48,7 +48,7 @@ class UnIndexCommand extends Command
         }
 
         /** @var Builder $indexRecordQuery */
-        $indexRecordQuery = IndexedRecord::where('searchable_type', (new $modelClass)->getMorphClass());
+        $indexRecordQuery = SearchableIndex::where('searchable_type', (new $modelClass)->getMorphClass());
 
         $modelId = $this->argument('id');
         if (!empty($modelId)) {
@@ -68,7 +68,7 @@ class UnIndexCommand extends Command
         $bar->start();
 
         $indexRecordQuery->chunk(100, function (Collection $chunks) use (&$bar) {
-            $chunks->each(function (IndexedRecord $indexRecord) use ($bar) {
+            $chunks->each(function (SearchableIndex $indexRecord) use ($bar) {
                 $indexRecord->delete();
                 $bar->advance();
             });

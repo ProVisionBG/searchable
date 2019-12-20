@@ -9,7 +9,7 @@ namespace ProVision\Searchable\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
-use ProVision\Searchable\SearchableTrait;
+use ProVision\Searchable\Traits\SearchableTrait;
 use Symfony\Component\Console\Helper\ProgressBar;
 
 /**
