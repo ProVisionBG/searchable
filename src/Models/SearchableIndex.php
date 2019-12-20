@@ -4,21 +4,22 @@
  * Written by Venelin Iliev <venelin@provision.bg>
  */
 
-namespace ProVision\Laravel\Searchable;
+namespace ProVision\Searchable\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use ProVision\Searchable\Traits\SearchableTrait;
 
 /**
- * Class IndexedRecord
+ * Class SearchableIndex
  * @property SearchableTrait searchable
- * @package ProVision\Laravel\Searchable
+ * @package ProVision\Searchable\Models
  */
-class IndexedRecord extends Model
+class SearchableIndex extends Model
 {
 
     /**
-     * IndexedRecord constructor.
+     * SearchableIndex constructor.
      * @param array $attributes
      */
     public function __construct(array $attributes = [])

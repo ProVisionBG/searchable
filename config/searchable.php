@@ -34,8 +34,8 @@ return [
      * Mode => [ 'cleaners to apply in specific mode' ]
      */
     'cleaners' => [
-        \ProVision\Laravel\Searchable\SearchableModes::Boolean => [
-            \ProVision\Laravel\Searchable\Cleaners\EmailCleaner::class
+        \ProVision\Searchable\SearchableModes::Boolean => [
+            \ProVision\Searchable\Cleaners\EmailCleaner::class
         ]
     ]
 ];

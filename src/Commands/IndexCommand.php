@@ -4,17 +4,17 @@
  * Written by Venelin Iliev <venelin@provision.bg>
  */
 
-namespace ProVision\Laravel\Searchable\Commands;
+namespace ProVision\Searchable\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
-use ProVision\Laravel\Searchable\SearchableTrait;
+use ProVision\Searchable\SearchableTrait;
 use Symfony\Component\Console\Helper\ProgressBar;
 
 /**
  * Class IndexCommand
- * @package ProVision\Laravel\Searchable\Commands
+ * @package ProVision\Searchable\Commands
  */
 class IndexCommand extends Command
 {

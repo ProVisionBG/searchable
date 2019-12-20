@@ -4,14 +4,14 @@
  * Written by Venelin Iliev <venelin@provision.bg>
  */
 
-namespace ProVision\Laravel\Searchable\Commands;
+namespace ProVision\Searchable\Commands;
 
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
-use ProVision\Laravel\Searchable\IndexedRecord;
-use ProVision\Laravel\Searchable\SearchableTrait;
+use ProVision\Searchable\IndexedRecord;
+use ProVision\Searchable\SearchableTrait;
 use Symfony\Component\Console\Helper\ProgressBar;
 
 class UnIndexCommand extends Command

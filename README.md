@@ -26,7 +26,7 @@ Add the ``SearchableTrait`` trait to the model you want to have indexed and defi
 class Clients extends Model
 {
 
-    use \ProVision\Laravel\Searchable\SearchableTrait;
+    use \ProVision\Searchable\SearchableTrait;
 
     /**
      * @inheritDoc
@@ -59,6 +59,36 @@ class Clients extends Model
 
 You can use a dot notation to query relationships for the model, like ``contacts.value``.
 
+### Relation model indexing
+
+On related model for indexing use `SearchableRelationTrait` and method `getSearchableRelationName` to return relation name.
+
+Listen for changes on relation and update parent model
+
+#### Example
+
+```
+class Contact extends Model
+{
+    use SearchableRelationTrait;
+
+     /**
+     * @return MorphTo
+     */
+    public function contactable()
+    {
+        return $this->morphTo();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    static function getSearchableRelationName(): string
+    {
+        return 'contactable';
+    }
+}
+```
 
 ### Searching 
 
@@ -71,7 +101,7 @@ $clientsCollection = Clients::search('John Doe')->paginate();
 #### Search with specific fulltext search mode
 
 ```
-use ProVision\Laravel\Searchable\SearchableModes;
+use ProVision\Searchable\SearchableModes;
 ---
 $clientsCollection = Clients::search('John Doe', SearchableModes::Boolean)->paginate();
 ```

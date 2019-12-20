@@ -4,11 +4,11 @@
  * Written by Venelin Iliev <venelin@provision.bg>
  */
 
-namespace ProVision\Laravel\Searchable\Cleaners;
+namespace ProVision\Searchable\Cleaners;
 
 /**
  * Class Cleaner
- * @package ProVision\Laravel\Searchable\Cleaners
+ * @package ProVision\Searchable\Cleaners
  */
 abstract class Cleaner
 {

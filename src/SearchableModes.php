@@ -4,11 +4,11 @@
  * Written by Venelin Iliev <venelin@provision.bg>
  */
 
-namespace ProVision\Laravel\Searchable;
+namespace ProVision\Searchable;
 
 /**
  * Class SearchableModes
- * @package ProVision\Laravel\Searchable
+ * @package ProVision\Searchable
  */
 abstract class SearchableModes
 {

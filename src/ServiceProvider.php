@@ -4,12 +4,16 @@
  * Written by Venelin Iliev <venelin@provision.bg>
  */
 
-namespace ProVision\Laravel\Searchable;
+namespace ProVision\Searchable;
 
 use Illuminate\Support\ServiceProvider as ServiceProviderAlias;
-use ProVision\Laravel\Searchable\Commands\IndexCommand;
-use ProVision\Laravel\Searchable\Commands\UnIndexCommand;
+use ProVision\Searchable\Commands\IndexCommand;
+use ProVision\Searchable\Commands\UnIndexCommand;
 
+/**
+ * Class ServiceProvider
+ * @package ProVision\Searchable
+ */
 class ServiceProvider extends ServiceProviderAlias
 {
     protected $commands = [

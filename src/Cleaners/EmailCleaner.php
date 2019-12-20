@@ -4,12 +4,12 @@
  * Written by Venelin Iliev <venelin@provision.bg>
  */
 
-namespace ProVision\Laravel\Searchable\Cleaners;
+namespace ProVision\Searchable\Cleaners;
 
 
 /**
  * Class EmailCleaner
- * @package ProVision\Laravel\Searchable\Cleaners
+ * @package ProVision\Searchable\Cleaners
  */
 class EmailCleaner extends Cleaner
 {

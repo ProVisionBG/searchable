@@ -4,17 +4,22 @@
  * Written by Venelin Iliev <venelin@provision.bg>
  */
 
-namespace ProVision\Laravel\Searchable;
+namespace ProVision\Searchable\Traits;
 
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Query\JoinClause;
+use ProVision\Searchable\Models\SearchableIndex;
+use ProVision\Searchable\Observers\ModelObserver;
+use ProVision\Searchable\SearchableModes;
 
 /**
- * @property indexedRecord indexedRecord
+ * @property SearchableIndex|Model $searchableIndex
  */
 trait SearchableTrait
 {
@@ -182,32 +187,33 @@ trait SearchableTrait
     /**
      * @return MorphOne
      */
-    public function indexedRecord(): MorphOne
+    public function searchableIndex(): MorphOne
     {
-        return $this->morphOne(IndexedRecord::class, 'searchable');
+        return $this->morphOne(SearchableIndex::class, 'searchable');
     }
 
     /**
      * Update/Insert index record of model
+     * @return void
      */
     public function indexRecord(): void
     {
-
-        if (!$this->indexedRecord) {
-            $this->indexedRecord = new IndexedRecord();
-            $this->indexedRecord->searchable()->associate($this);
+        if (!$this->searchableIndex) {
+            $this->searchableIndex = new SearchableIndex();
+            $this->searchableIndex->searchable()->associate($this);
         }
 
-        $this->indexedRecord->updateIndex();
+        $this->searchableIndex->updateIndex();
     }
 
     /**
      *
+     * @throws Exception
      */
     public function unIndexRecord(): void
     {
-        if ($this->indexedRecord) {
-            $this->indexedRecord->delete();
+        if ($this->searchableIndex) {
+            $this->searchableIndex->delete();
         }
     }
 }

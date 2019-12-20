@@ -28,12 +28,12 @@
   },
   "autoload": {
     "psr-4": {
-      "ProVision\\Laravel\\Searchable\\": "src/"
+      "ProVision\\Searchable\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "ProVision\\Laravel\\Searchable\\Tests\\": "tests/"
+      "ProVision\\Searchable\\Tests\\": "tests/"
     }
   },
   "scripts": {
@@ -42,7 +42,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "ProVision\\Laravel\\Searchable\\ServiceProvider"
+        "ProVision\\Searchable\\ServiceProvider"
       ]
     }
   },
