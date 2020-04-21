@@ -108,18 +108,18 @@ trait SearchableTrait
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getIndexContent(): string
+    public function getIndexContent()
     {
         return $this->getIndexDataFromColumns($this->getSearchableContentColumns());
     }
 
     /**
      * @param array $columns
-     * @return string
+     * @return string|null
      */
-    protected function getIndexDataFromColumns(array $columns): string
+    protected function getIndexDataFromColumns(array $columns)
     {
         $indexData = [];
         foreach ($columns as $column) {
@@ -151,7 +151,7 @@ trait SearchableTrait
     /**
      * @param $column
      *
-     * @return string
+     * @return string|null
      */
     protected function searchableGetIndexValueFromRelation($column)
     {
@@ -166,9 +166,9 @@ trait SearchableTrait
      * @param Model $currentRelation
      * @param array $relations
      * @param string $column
-     * @return string
+     * @return string|null
      */
-    protected function searchableExtractDataFromRelation(Model $currentRelation, array $relations, string $column): string
+    protected function searchableExtractDataFromRelation(Model $currentRelation, array $relations, string $column)
     {
         $relationship = $currentRelation;
         $remainingRelations = $relations;
