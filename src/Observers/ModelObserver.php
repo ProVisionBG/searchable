@@ -24,7 +24,6 @@ class ModelObserver
      */
     public function updated($model)
     {
-        Log::info('updated base');
         $this->created($model);
     }
 
