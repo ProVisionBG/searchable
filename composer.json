@@ -1,6 +1,6 @@
 {
   "name": "provision/searchable",
-  "version": "dev",
+  "version": "1.0.0",
   "type": "library",
   "description": "Searchable indexing with MySQL full text for Laravel",
   "keywords": [
