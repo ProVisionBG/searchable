@@ -112,6 +112,8 @@ Available modes
 - `Boolean` - IN BOOLEAN MODE
 - `QueryExpression` - WITH QUERY EXPANSION
 
+MySQL fulltext search documentation: https://dev.mysql.com/doc/refman/8.0/en/fulltext-search.html
+
 #### Search with relations & additional wheres
 
 ```
