@@ -15,7 +15,6 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Query\JoinClause;
 use ProVision\Searchable\Models\SearchableIndex;
 use ProVision\Searchable\Observers\ModelObserver;
-use ProVision\Searchable\SearchableModes;
 
 /**
  * @property SearchableIndex|Model $searchableIndex
@@ -189,7 +188,12 @@ trait SearchableTrait
         }
 
         if (!is_countable($relationship)) {
-            return $relationship->{$column};
+            try {
+                $relationValue = $relationship->{$column};
+            } catch (Exception $exception) {
+                $relationValue = '';
+            }
+            return $relationValue;
         }
 
         return $relationship->pluck($column)->implode(', ');
