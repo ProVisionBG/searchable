@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ProVisionBG/searchable.svg?branch=master)](https://travis-ci.org/ProVisionBG/searchable)
+
 # Laravel MySQL fulltext search
 
 This package creates a MySQL fulltext index for models and enables you to search through those.
