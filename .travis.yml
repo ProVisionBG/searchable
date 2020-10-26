@@ -12,9 +12,15 @@ matrix:
       env: LARAVEL='^7.0'
     - php: 7.3.0
       env: LARAVEL='^8.0'
+    - php: nightly
+      env: LARAVEL='^8.0'
+  fast_finish: true
+  allow_failures:
+      - php: nightly
 
 cache:
   directories:
+    - vendor
     - $HOME/.composer/cache
 
 before_install:
