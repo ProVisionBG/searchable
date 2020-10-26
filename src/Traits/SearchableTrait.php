@@ -125,7 +125,11 @@ trait SearchableTrait
             if ($this->indexDataIsRelation($column)) {
                 $indexData[] = $this->searchableGetIndexValueFromRelation($column);
             } else {
-                $indexData[] = trim($this->{$column});
+	            $columnValue = $this->{$column};
+	            if(is_array($columnValue)){
+		            $columnValue = implode(' ', $columnValue);
+	            }
+	            $indexData[] = trim($columnValue);
             }
         }
 
