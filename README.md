@@ -28,7 +28,7 @@ Add the ``SearchableTrait`` trait to the model you want to have indexed and defi
 class Clients extends Model
 {
 
-    use \ProVision\Searchable\SearchableTrait;
+    use \ProVision\Searchable\Traits\SearchableTrait;
 
     /**
      * @inheritDoc
@@ -72,7 +72,7 @@ Listen for changes on relation and update parent model
 ```
 class Contact extends Model
 {
-    use SearchableRelationTrait;
+    use \ProVision\Searchable\Traits\SearchableRelationTrait;
 
      /**
      * @return MorphTo
