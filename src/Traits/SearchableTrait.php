@@ -44,7 +44,7 @@ trait SearchableTrait
 	 */
 	public function searchable(): MorphTo
 	{
-		return $this->morphTo();
+		return $this->morphTo()->withoutGlobalScopes();
 	}
 
 	/**
