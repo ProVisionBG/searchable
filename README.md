@@ -6,7 +6,7 @@ This package creates a MySQL fulltext index for models and enables you to search
 
 ## Requirements
 
-- Laravel >= 5.7
+- Laravel >= 6.20.14
 - MySQL >= 5.6 / MariaDB >= 10.0.15
 
 #### Important! 
