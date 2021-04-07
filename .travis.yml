@@ -27,5 +27,5 @@ before_install:
   - travis_retry composer self-update
 
 install:
-  - travis_retry composer require "illuminate/contracts:${LARAVEL}" --prefer-dist --no-interaction --no-suggest
+  - travis_retry composer require "illuminate/database:${LARAVEL}" --prefer-dist --no-interaction --no-suggest
   - travis_retry composer install --prefer-dist --no-interaction --no-suggest
