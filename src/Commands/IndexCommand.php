@@ -42,7 +42,7 @@ class IndexCommand extends Command
     {
         $modelClass = $this->argument('model_class');
 
-        if (!in_array(SearchableTrait::class, class_uses($modelClass), true)) {
+        if (!in_array(SearchableTrait::class, class_uses_recursive($modelClass), true)) {
             $this->error('Model not using ' . SearchableTrait::class);
             return;
         }
